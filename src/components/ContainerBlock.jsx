@@ -1,38 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getConfigsValue } from '../store/selectors/getConfigsValue';
-import { parseStyle } from '../helpers/parseStyle';
-import componentsFactory from '../core/factories/componentsFactory';
-import { addConfig } from '../store/reducers/configsSlice';
+import { getChildComponents } from '../helpers/getChildComponents';
 
-export default function ContainerBlock({ id }) {
-  const dispatch = useDispatch();
+export default function ContainerBlock(props) {
+  const { id, children } = props;
+  // const dispatch = useDispatch();
   const configs = useSelector(getConfigsValue);
-  const [children, setChildren] = useState([]);
-  const [styles, setStyles] = useState();
+  const [childrens, setChildrens] = useState([]);
+  const [styles, setStyles] = useState({});
 
   useEffect(() => {
-    const { style, children } = configs[id] || {};
+    const { __styles } = configs[id] || {};
 
-    const { webStyle } = style || {};
+    console.log('ContainerBlock', props, configs[id], children);
 
-    console.log('ContainerBlock', webStyle, children);
+    setStyles(__styles);
 
-    setStyles(parseStyle(webStyle));
-
-    // const newChildrens = children.map((el) => {
+    setChildrens(getChildComponents(children));
+    // const newChildren = children.map((el) => {
     //   // console.log('el', el);
 
     //   const componentData = componentsFactory({ type: el.type });
     //   dispatch(addConfig({ id: componentData.id, config: el }));
     //   return componentData;
     // });
-    // setChildren(newChildrens);
-  }, [configs, dispatch, id]);
+    // setChildren(newChildren);
+  }, [children, configs, id, props]);
 
   return (
     <div style={{ ...styles, border: '1px solid red', width: '100%' }}>
-      {JSON.stringify(children)}
+      {/* {JSON.stringify(childrens)} */}
+      {childrens.map((el) => (
+        <Fragment key={el.id}>{el.component}</Fragment>
+      ))}
     </div>
   );
 }

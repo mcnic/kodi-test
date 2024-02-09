@@ -8,13 +8,11 @@ export default function TextField({ id }) {
   const [styles, setStyles] = useState();
 
   useEffect(() => {
-    const { style } = configs[id] || {};
+    const { __styles } = configs[id] || {};
 
-    const { webStyle } = style || {};
+    // console.log('TextField', webStyle);
 
-    console.log('TextField', webStyle);
-
-    setStyles(parseStyle(webStyle));
+    setStyles(__styles);
   }, [configs, id]);
 
   return <input type="text" style={styles} />;

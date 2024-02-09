@@ -8,13 +8,11 @@ export default function TextArea({ id }) {
   const [styles, setStyles] = useState();
 
   useEffect(() => {
-    const { style } = configs[id] || {};
+    const { __styles } = configs[id] || {};
 
-    const { webStyle } = style || {};
+    // console.log('TextArea', webStyle);
 
-    console.log('TextArea', webStyle);
-
-    setStyles(parseStyle(webStyle));
+    setStyles(__styles);
   }, [configs, id]);
 
   return <textarea id={id} style={styles}></textarea>;

@@ -9,7 +9,7 @@ export const configsSlice = createSlice({
   initialState,
   reducers: {
     addConfig: (state, actions) => {
-      console.log('addConfig', state, actions);
+      // console.log('addConfig', state, actions);
       const { id, config } = actions.payload;
       state.value[id] = config;
     },

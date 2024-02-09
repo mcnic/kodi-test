@@ -1,16 +1,10 @@
-import { v4 as uuid } from 'uuid';
-import { addConfig } from '../../store/reducers/configsSlice';
 import TextBlock from '../../components/TextBlock';
 import WrongBlock from '../../components/WrongBlock';
 import TextArea from '../../components/TextArea';
 import TextField from '../../components/TextField';
 import ContainerBlock from '../../components/ContainerBlock';
 
-const componentsFactory = (config) => {
-  const { type } = config || {};
-  const id = uuid();
-  console.log('componentsFactory', type, config);
-
+const getComponent = ({ type, id, __children }) => {
   let component;
 
   switch (type) {
@@ -24,19 +18,16 @@ const componentsFactory = (config) => {
       component = <TextField id={id} />;
       break;
     case 'container':
-      component = <ContainerBlock id={id} />;
+      component = <ContainerBlock id={id} {...{ children: __children }} />;
       break;
     default:
       component = <WrongBlock id={id} type={type} />;
   }
 
-  // dispatch(addConfig({ id, config }));
-
   return {
     id,
     component,
-    config,
   };
 };
 
-export default componentsFactory;
+export default getComponent;

@@ -1,12 +1,37 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../store/reducers/itemsSlice';
+import { parseConfig } from '../factories/parseConfig';
+import { onlyComponentsTestData } from '../mocks/onlyComponentsTestData';
+import { addConfig } from '../../store/reducers/configsSlice';
 
 export default function LeftPanel() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    examples.map((el) => dispatch(addItem(el)));
+    const newConfig = parseConfig(onlyComponentsTestData);
+    console.log('newConfig', newConfig?.views);
+
+    //todo make bulk Store operations
+    newConfig?.views.forEach(
+      ({ type, __id, data, value, __children, __styles }) => {
+        dispatch(
+          addItem({
+            type,
+            __id,
+            __children,
+          })
+        );
+        dispatch(
+          addConfig({
+            id: __id,
+            config: { __id, __styles, data, value },
+          })
+        );
+      }
+    );
+
+    // examples.map((el) => dispatch(addItem(el)));
   }, [dispatch]);
 
   const addElement = () => {
@@ -89,47 +114,47 @@ const examples = [
   //     },
   //   },
   // },
-  // {
-  //   type: 'container',
-  //   style: {
-  //     webStyle: {
-  //       padding: '10px 0',
-  //       margin: '0',
-  //       textAlign: 'center',
-  //     },
-  //     actions: {
-  //       onFocus: {},
-  //       onHover: {
-  //         backgroundColor: '#eee',
-  //       },
-  //     },
-  //   },
-  //   children: [
-  //     {
-  //       type: 'text',
-  //       data: {
-  //         value: 'Something Went Wrong',
-  //       },
-  //       style: {
-  //         webStyle: {
-  //           display: 'inline-block',
-  //           color: '#392F2C',
-  //           fontFamily:
-  //             "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
-  //           fontStyle: 'normal',
-  //           fontWeight: 400,
-  //           fontSize: '32px',
-  //           lineHeight: '32px',
-  //           paddingRight: '48px',
-  //         },
-  //         actions: {
-  //           onFocus: {},
-  //           onHover: {},
-  //         },
-  //       },
-  //     },
-  //   ],
-  // },
+  {
+    type: 'container',
+    style: {
+      webStyle: {
+        padding: '10px 0',
+        margin: '0',
+        textAlign: 'center',
+      },
+      actions: {
+        onFocus: {},
+        onHover: {
+          backgroundColor: '#eee',
+        },
+      },
+    },
+    children: [
+      {
+        type: 'text',
+        data: {
+          value: 'Something Went Wrong',
+        },
+        style: {
+          webStyle: {
+            display: 'inline-block',
+            color: '#392F2C',
+            fontFamily:
+              "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+            fontStyle: 'normal',
+            fontWeight: 400,
+            fontSize: '32px',
+            lineHeight: '32px',
+            paddingRight: '48px',
+          },
+          actions: {
+            onFocus: {},
+            onHover: {},
+          },
+        },
+      },
+    ],
+  },
   // {
   //   type: 'image',
   //   value: '/img/uploadimg.png',
