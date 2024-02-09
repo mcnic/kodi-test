@@ -1,5 +1,5 @@
 import './App.css';
-import CenterPanel from './core/layouts/CenterPanel';
+import CentralPanel from './core/layouts/CentralPanel';
 import LeftPanel from './core/layouts/LeftPanel';
 
 function App() {
@@ -9,8 +9,8 @@ function App() {
         <LeftPanel />
       </div>
       <div className="center-panel">
-        <div className="c-wrapper">
-          <CenterPanel />
+        <div className="center-panel-wrapper">
+          <CentralPanel />
         </div>
       </div>
     </div>

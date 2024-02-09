@@ -29,16 +29,26 @@
   flex-direction: column;
 }
 
-.c-wrapper {
+.center-panel-wrapper {
   border: 1px solid purple;
   background-color: white;
   height: 100%;
   width: 600px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  gap: 20px;
   flex-direction: column;
   overflow: auto;
   margin: 20px 0;
-  padding: 40px 0;
+  padding: 20px;
+}
+
+.form-component {
+  border: 1px solid red;
+  background-color: bisque;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
