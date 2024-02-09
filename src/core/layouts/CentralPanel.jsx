@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getItemsValue } from '../../store/selectors/getItemsValue';
 import componentsFactory from '../factories/componentsFactory';
 import { addConfig } from '../../store/reducers/configsSlice';
@@ -14,9 +13,10 @@ export default function CentralPanel({ children }) {
     // console.log('storeItems', storeItems);
 
     const newItems = storeItems.map((el) => {
-      // console.log('el', el);
-
-      const componentData = componentsFactory({ type: el.type });
+      /*
+        todo: make all object with all components and configs at once
+      */
+      const componentData = componentsFactory({ type: el.type, dispatch });
       dispatch(addConfig({ id: componentData.id, config: el }));
       return componentData;
     });

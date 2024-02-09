@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../store/reducers/itemsSlice';
 
 export default function LeftPanel() {
   const dispatch = useDispatch();
 
-  const addElement = () => {
+  useEffect(() => {
     examples.map((el) => dispatch(addItem(el)));
+  }, [dispatch]);
+
+  const addElement = () => {
+    dispatch(addItem(examples[0]));
   };
 
   return (
     <>
-      <h1>Lefl</h1>
+      <h1>Left</h1>
 
       <button onClick={addElement}>add</button>
     </>
@@ -22,69 +26,20 @@ const examples = [
   {
     type: 'text',
     data: {
-      value:
-        'Please leave us the email associated with your Nom Nom account and a brief description of the issue.',
+      value: 'Something Went Wrong',
     },
     style: {
       webStyle: {
-        color: '#3D3935',
+        display: 'inline-block',
+        color: '#392F2C',
         fontFamily:
           "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
         fontStyle: 'normal',
-        fontWeight: 'normal',
-        fontSize: '15px',
-        lineHeight: '22px',
-        marginTop: '10px',
-        textAlign: 'center',
-        width: '100%',
-      },
-      actions: {
-        onFocus: {},
-        onHover: {},
-      },
-    },
-  },
-  {
-    type: 'text1',
-    data: {
-      value:
-        'Please leave us the email associated with your Nom Nom account and a brief description of the issue.',
-    },
-    style: {
-      webStyle: {
-        color: '#3D3935',
-        fontFamily:
-          "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
-        fontStyle: 'normal',
-        fontWeight: 'normal',
-        fontSize: '15px',
-        lineHeight: '22px',
-        marginTop: '10px',
-        textAlign: 'center',
-        width: '100%',
-      },
-      actions: {
-        onFocus: {},
-        onHover: {},
-      },
-    },
-  },
-  {
-    type: 'textfield',
-    data: {
-      placeholder: null,
-      value: null,
-    },
-    style: {
-      webStyle: {
-        color: '#3D3935',
-        fontFamily:
-          "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
-        fontSize: '15px',
-        padding: '8px 0px',
-        textTransform: 'none',
+        fontWeight: 400,
+        fontSize: '32px',
+        lineHeight: '32px',
+        paddingRight: '48px',
         'text-align': 'center',
-        margin: '0 auto',
       },
       actions: {
         onFocus: {},
@@ -92,4 +47,134 @@ const examples = [
       },
     },
   },
+  // {
+  //   type: 'textarea',
+  //   data: {
+  //     placeholder: '',
+  //     value: null,
+  //   },
+  //   style: {
+  //     webStyle: {
+  //       color: '#3D3935',
+  //       fontFamily:
+  //         "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+  //       padding: '15px',
+  //       borderStyle: 'solid',
+  //       borderWidth: '1px',
+  //       borderColor: '#392F2C',
+  //       borderRadius: '4px',
+  //     },
+  //   },
+  // },
+  // {
+  //   type: 'textfield',
+  //   data: {
+  //     placeholder: null,
+  //     value: null,
+  //   },
+  //   style: {
+  //     webStyle: {
+  //       color: '#3D3935',
+  //       fontFamily:
+  //         "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+  //       fontSize: '15px',
+  //       padding: '8px 0px',
+  //       textTransform: 'none',
+  //       'text-align': 'center',
+  //       margin: '0 auto',
+  //     },
+  //     actions: {
+  //       onFocus: {},
+  //       onHover: {},
+  //     },
+  //   },
+  // },
+  // {
+  //   type: 'container',
+  //   style: {
+  //     webStyle: {
+  //       padding: '10px 0',
+  //       margin: '0',
+  //       textAlign: 'center',
+  //     },
+  //     actions: {
+  //       onFocus: {},
+  //       onHover: {
+  //         backgroundColor: '#eee',
+  //       },
+  //     },
+  //   },
+  //   children: [
+  //     {
+  //       type: 'text',
+  //       data: {
+  //         value: 'Something Went Wrong',
+  //       },
+  //       style: {
+  //         webStyle: {
+  //           display: 'inline-block',
+  //           color: '#392F2C',
+  //           fontFamily:
+  //             "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+  //           fontStyle: 'normal',
+  //           fontWeight: 400,
+  //           fontSize: '32px',
+  //           lineHeight: '32px',
+  //           paddingRight: '48px',
+  //         },
+  //         actions: {
+  //           onFocus: {},
+  //           onHover: {},
+  //         },
+  //       },
+  //     },
+  //   ],
+  // },
+  // {
+  //   type: 'image',
+  //   value: '/img/uploadimg.png',
+  //   style: {
+  //     webStyle: {
+  //       width: '8px',
+  //       height: '13px',
+  //       display: 'inline-block',
+  //       float: 'left',
+  //     },
+  //     actions: {
+  //       onFocus: {},
+  //       onHover: {},
+  //     },
+  //   },
+  // },
+  // {
+  //   type: 'button',
+  //   data: {
+  //     title: 'Submit',
+  //   },
+  //   style: {
+  //     webStyle: {
+  //       width: '100%',
+  //       color: '#EE2737',
+  //       backgroundColor: '#ffffff',
+  //       border: '1px solid #EE2737',
+  //       borderRadius: '3px',
+  //       fontSize: '15px',
+  //       fontWeight: 700,
+  //       padding: '10px 20px',
+  //       fontFamily:
+  //         "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+  //       'text-transform': 'none',
+  //     },
+  //     actions: {
+  //       onFocus: {
+  //         color: '#ffffff',
+  //         backgroundColor: '#EE2737',
+  //       },
+  //       onHover: {
+  //         color: '#ffffff',
+  //         backgroundColor: '#EE2737',
+  //       },
+  //     },
+  //   },
+  // },
 ];

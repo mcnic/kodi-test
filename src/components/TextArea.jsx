@@ -3,21 +3,19 @@ import { useSelector } from 'react-redux';
 import { getConfigsValue } from '../store/selectors/getConfigsValue';
 import { parseStyle } from '../helpers/parseStyle';
 
-export default function TextBlock({ id }) {
+export default function TextArea({ id }) {
   const configs = useSelector(getConfigsValue);
-  const [text, setText] = useState('');
   const [styles, setStyles] = useState();
 
   useEffect(() => {
-    const { data, style } = configs[id] || {};
-    setText(data?.value || '');
+    const { style } = configs[id] || {};
 
     const { webStyle } = style || {};
 
-    console.log('TextBlock', webStyle);
+    console.log('TextArea', webStyle);
 
     setStyles(parseStyle(webStyle));
   }, [configs, id]);
 
-  return <div style={styles}>{text}</div>;
+  return <textarea id={id} style={styles}></textarea>;
 }
