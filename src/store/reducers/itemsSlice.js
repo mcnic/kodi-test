@@ -5,35 +5,17 @@ const initialState = {
 };
 
 export const itemsSlice = createSlice({
-  name: 'elements',
+  name: 'items',
   initialState,
   reducers: {
     addItem: (state, actions) => {
       state.value.push(actions.payload);
     },
-    // decrement: (state) => {
-    //   state.value -= 1;
-    // },
-    // incrementByAmount: (state, actions) => {
-    //   state.value += actions.payload;
-    // },
+    loadItems: (state, actions) => {
+      state.value = actions.payload;
+    },
   },
 });
 
-// async 'thunk' functions
-export const incrementAsync = (amount) => (dispatch) => {
-  setTimeout(() => {
-    // dispatch(incrementByAmount(amount));
-  }, 1000);
-};
-
-export const incrementAsync2 = (amount) => {
-  return async (dispatch) => {
-    setTimeout(() => {
-      // dispatch(incrementByAmount(amount));
-    }, 1000);
-  };
-};
-
-export const { addItem } = itemsSlice.actions;
+export const { addItem, loadItems } = itemsSlice.actions;
 export default itemsSlice.reducer;

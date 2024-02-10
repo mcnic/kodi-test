@@ -5,15 +5,10 @@ import { parseStyle } from '../helpers/parseStyle';
 
 export default function TextArea({ id }) {
   const configs = useSelector(getConfigsValue);
-  const [styles, setStyles] = useState();
+  const { __styles } = configs[id] || {};
+  // console.log('TextArea', configs[id]);
 
-  useEffect(() => {
-    const { __styles } = configs[id] || {};
-
-    // console.log('TextArea', webStyle);
-
-    setStyles(__styles);
-  }, [configs, id]);
-
-  return <textarea id={id} style={styles}></textarea>;
+  return (
+    <textarea id={id} className="form-teaxarea" style={__styles}></textarea>
+  );
 }

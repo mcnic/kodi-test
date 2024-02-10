@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getItemsValue } from '../../store/selectors/getItemsValue';
 import { getChildComponents } from '../../helpers/getChildComponents';
 
-export default function CentralPanel({ children }) {
+export default function CentralPanel() {
   const storeItems = useSelector(getItemsValue);
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    console.log('storeItems', storeItems);
+    // console.log('storeItems', storeItems);
 
     setItems(getChildComponents(storeItems));
   }, [dispatch, storeItems]);

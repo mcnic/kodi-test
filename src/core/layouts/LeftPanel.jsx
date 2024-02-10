@@ -1,215 +1,87 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addItem } from '../../store/reducers/itemsSlice';
+import { addItem, loadItems } from '../../store/reducers/itemsSlice';
 import { parseConfig } from '../factories/parseConfig';
 import { onlyComponentsTestData } from '../mocks/onlyComponentsTestData';
-import { addConfig } from '../../store/reducers/configsSlice';
+import { addConfig, loadAllConfig } from '../../store/reducers/configsSlice';
+import { fullJsonTestData } from '../mocks/fullJsonTestData';
 
 export default function LeftPanel() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const parsedConfig = parseConfig(onlyComponentsTestData);
-    console.log('parsedConfig', parsedConfig?.views);
+  const loadConfig = useCallback(
+    (configJson) => {
+      const parsedConfig = parseConfig(configJson);
+      // console.log('parsedConfig', parsedConfig?.views);
 
-    const items = parsedConfig?.views?.map(
-      ({ type, __id, data, value, __children, __styles }) => ({
-        type,
-        __id,
-        __children,
-      })
-    );
+      const items = parsedConfig?.views?.map(
+        ({ type, __id, data, value, __children }) => ({
+          type,
+          __id,
+          __children,
+        })
+      );
 
-    const configs = [];
+      const configs = {};
 
-    const fillConfig = (children) => {
-      children.forEach(({ type, __id, data, value, __children, __styles }) => {
-        configs.push({
-          id: __id,
-          config: { __id, __styles, data, value },
+      const fillConfig = (children) => {
+        children.forEach(({ __id, data, value, __children, __styles }) => {
+          configs[__id] = { __id, __styles, data, value };
+
+          __children && fillConfig(__children);
         });
+      };
 
-        if (__children) {
-          fillConfig(__children);
-        }
-      });
-    };
+      fillConfig(parsedConfig?.views);
 
-    fillConfig(parsedConfig?.views);
+      dispatch(loadItems(items));
+      dispatch(loadAllConfig(configs));
+    },
+    [dispatch]
+  );
 
-    //todo make bulk Store operations
-    items.forEach((el) => dispatch(addItem(el)));
-    configs.forEach((el) => dispatch(addConfig(el)));
+  useEffect(() => {
+    loadConfig(fullJsonTestData);
+  }, [loadConfig]);
 
-    // examples.map((el) => dispatch(addItem(el)));
-  }, [dispatch]);
+  // const addElement = () => {
+  //   dispatch(addItem(examples[0]));
+  // };
 
-  const addElement = () => {
-    dispatch(addItem(examples[0]));
-  };
+  const onSelect = useCallback(
+    (event) => {
+      switch (event.target.value) {
+        case 'base':
+          loadConfig(fullJsonTestData);
+          break;
+        case 'my':
+          loadConfig(onlyComponentsTestData);
+          break;
+        case 'goal':
+          loadConfig(fullJsonTestData);
+          break;
+
+        default:
+          break;
+      }
+    },
+    [loadConfig]
+  );
 
   return (
     <>
       <h1>Left</h1>
 
-      <button onClick={addElement}>add</button>
+      <label htmlFor="cfg-select">Choose a config:</label>
+
+      <select name="condigs" id="cfg-select" onChange={onSelect}>
+        <option value="">--Please choose an option--</option>
+        <option value="base">base</option>
+        <option value="my">test 1</option>
+        <option value="goal">Goal</option>
+      </select>
+
+      {/* <button onClick={addElement}>add</button> */}
     </>
   );
 }
-
-const examples = [
-  {
-    type: 'text',
-    data: {
-      value: 'Something Went Wrong',
-    },
-    style: {
-      webStyle: {
-        display: 'inline-block',
-        color: '#392F2C',
-        fontFamily:
-          "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
-        fontStyle: 'normal',
-        fontWeight: 400,
-        fontSize: '32px',
-        lineHeight: '32px',
-        paddingRight: '48px',
-        'text-align': 'center',
-      },
-      actions: {
-        onFocus: {},
-        onHover: {},
-      },
-    },
-  },
-  // {
-  //   type: 'textarea',
-  //   data: {
-  //     placeholder: '',
-  //     value: null,
-  //   },
-  //   style: {
-  //     webStyle: {
-  //       color: '#3D3935',
-  //       fontFamily:
-  //         "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
-  //       padding: '15px',
-  //       borderStyle: 'solid',
-  //       borderWidth: '1px',
-  //       borderColor: '#392F2C',
-  //       borderRadius: '4px',
-  //     },
-  //   },
-  // },
-  // {
-  //   type: 'textfield',
-  //   data: {
-  //     placeholder: null,
-  //     value: null,
-  //   },
-  //   style: {
-  //     webStyle: {
-  //       color: '#3D3935',
-  //       fontFamily:
-  //         "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
-  //       fontSize: '15px',
-  //       padding: '8px 0px',
-  //       textTransform: 'none',
-  //       'text-align': 'center',
-  //       margin: '0 auto',
-  //     },
-  //     actions: {
-  //       onFocus: {},
-  //       onHover: {},
-  //     },
-  //   },
-  // },
-  {
-    type: 'container',
-    style: {
-      webStyle: {
-        padding: '10px 0',
-        margin: '0',
-        textAlign: 'center',
-      },
-      actions: {
-        onFocus: {},
-        onHover: {
-          backgroundColor: '#eee',
-        },
-      },
-    },
-    children: [
-      {
-        type: 'text',
-        data: {
-          value: 'Something Went Wrong',
-        },
-        style: {
-          webStyle: {
-            display: 'inline-block',
-            color: '#392F2C',
-            fontFamily:
-              "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
-            fontStyle: 'normal',
-            fontWeight: 400,
-            fontSize: '32px',
-            lineHeight: '32px',
-            paddingRight: '48px',
-          },
-          actions: {
-            onFocus: {},
-            onHover: {},
-          },
-        },
-      },
-    ],
-  },
-  // {
-  //   type: 'image',
-  //   value: '/img/uploadimg.png',
-  //   style: {
-  //     webStyle: {
-  //       width: '8px',
-  //       height: '13px',
-  //       display: 'inline-block',
-  //       float: 'left',
-  //     },
-  //     actions: {
-  //       onFocus: {},
-  //       onHover: {},
-  //     },
-  //   },
-  // },
-  // {
-  //   type: 'button',
-  //   data: {
-  //     title: 'Submit',
-  //   },
-  //   style: {
-  //     webStyle: {
-  //       width: '100%',
-  //       color: '#EE2737',
-  //       backgroundColor: '#ffffff',
-  //       border: '1px solid #EE2737',
-  //       borderRadius: '3px',
-  //       fontSize: '15px',
-  //       fontWeight: 700,
-  //       padding: '10px 20px',
-  //       fontFamily:
-  //         "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
-  //       'text-transform': 'none',
-  //     },
-  //     actions: {
-  //       onFocus: {
-  //         color: '#ffffff',
-  //         backgroundColor: '#EE2737',
-  //       },
-  //       onHover: {
-  //         color: '#ffffff',
-  //         backgroundColor: '#EE2737',
-  //       },
-  //     },
-  //   },
-  // },
-];

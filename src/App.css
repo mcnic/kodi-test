@@ -39,7 +39,8 @@
   align-items: center;
   gap: 20px;
   flex-direction: column;
-  overflow: auto;
+  overflow-y: auto;
+  /* overflow-x: hidden; */
   margin: 20px 0;
   padding: 20px;
 }
@@ -51,4 +52,16 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
+}
+
+.form-container {
+  border: 1px solid red;
+  width: 100%;
+}
+
+.form-input,
+.form-textfield,
+.form-teaxarea {
+  width: 100%;
+  padding-inline: 0;
 }
