@@ -10,7 +10,7 @@ export default function ContainerBlock(props) {
   const [styles, setStyles] = useState({});
 
   useEffect(() => {
-    const { __styles } = configs[id] || {};
+    const { __styles } = configs[id] ?? {};
 
     // console.log('ContainerBlock', props, configs[id], children);
 

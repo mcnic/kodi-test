@@ -4,8 +4,9 @@ import TextArea from '../../components/TextArea';
 import TextField from '../../components/TextField';
 import ContainerBlock from '../../components/ContainerBlock';
 import ImagetBlock from '../../components/ImagetBlock';
-import ButtonBlock from '../../components/ButtonBlock';
-import DropdownBlock from '../../components/DropdownBlock.jsx';
+import Button from '../../components/Button.jsx';
+import Dropdown from '../../components/Dropdown.jsx';
+import EndButton from '../../components/EndButton.jsx';
 
 const getComponent = ({ type, id, __children }) => {
   let component;
@@ -27,10 +28,13 @@ const getComponent = ({ type, id, __children }) => {
       component = <ImagetBlock id={id} />;
       break;
     case 'button':
-      component = <ButtonBlock id={id} />;
+      component = <Button id={id} />;
+      break;
+    case 'endbutton':
+      component = <EndButton id={id} />;
       break;
     case 'dropdown':
-      component = <DropdownBlock id={id} />;
+      component = <Dropdown id={id} />;
       break;
     default:
       component = <WrongBlock id={id} type={type} />;

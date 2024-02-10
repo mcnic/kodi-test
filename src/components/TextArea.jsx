@@ -1,14 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { getConfigsValue } from '../store/selectors/getConfigsValue';
-import { parseStyle } from '../helpers/parseStyle';
 
 export default function TextArea({ id }) {
   const configs = useSelector(getConfigsValue);
-  const { __styles } = configs[id] || {};
+  const { __styles, data } = configs[id] ?? {};
+  const { placeholder, title, label, rows = 5 } = data ?? {};
   // console.log('TextArea', configs[id]);
 
   return (
-    <textarea id={id} className="form-teaxarea" style={__styles}></textarea>
+    <div className="form-textarea">
+      <label htmlFor={id} className="form-textarea-label">
+        {label}
+      </label>
+      <textarea
+        id={id}
+        className="form-teaxarea"
+        style={__styles}
+        placeholder={placeholder}
+        title={title}
+        rows={rows}
+      ></textarea>
+    </div>
   );
 }

@@ -4,8 +4,16 @@ import { getConfigsValue } from '../store/selectors/getConfigsValue';
 
 export default function TextField({ id }) {
   const configs = useSelector(getConfigsValue);
-  const { __styles } = configs[id] || {};
-  // console.log('TextField', webStyle);
+  const { __styles, data } = configs[id] ?? {};
+  const { value } = data ?? {};
+  // console.log('TextField', configs[id]);
 
-  return <input type="text" className="form-textfield" style={__styles} />;
+  return (
+    <input
+      type="text"
+      className="form-textfield"
+      style={__styles}
+      defaultValue={value}
+    />
+  );
 }
