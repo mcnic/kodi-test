@@ -121,27 +121,71 @@ export const onlyComponentsTestData = `
           }
         },
         {
-          "type": "text",
-          "data": {
-            "value": "child 2"
-          },
+          "type": "container",
           "style": {
             "webStyle": {
-              "display": "inline-block",
-              "color": "#392F2C",
-              "fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
-              "fontStyle": "normal",
-              "fontWeight": 400,
-              "fontSize": "32px",
-              "lineHeight": "32px",
-              "paddingRight": "48px"
+              "padding": "16px",
+              "margin": "0",
+              "width": "50px",
+              "cursor": "pointer",
+              "position": "relative",
+              "left": "0"
             },
             "actions": {
               "onFocus": {},
-              "onHover": {}
+              "onHover": {
+                "backgroundColor": "#eee"
+              }
             }
-          }
+          },
+          "children": [
+            {
+              "type": "text",
+              "data": {
+                "value": "child 2"
+              },
+              "style": {
+                "webStyle": {
+                  "display": "inline-block",
+                  "color": "#392F2C",
+                  "fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+                  "fontStyle": "normal",
+                  "fontWeight": 400,
+                  "fontSize": "32px",
+                  "lineHeight": "32px",
+                  "paddingRight": "48px"
+                },
+                "actions": {
+                  "onFocus": {},
+                  "onHover": {}
+                }
+              }
+            },
+            {
+              "type": "text",
+              "data": {
+                "value": "child 3"
+              },
+              "style": {
+                "webStyle": {
+                  "display": "inline-block",
+                  "color": "#392F2C",
+                  "fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+                  "fontStyle": "normal",
+                  "fontWeight": 400,
+                  "fontSize": "32px",
+                  "lineHeight": "32px",
+                  "paddingRight": "48px"
+                },
+                "actions": {
+                  "onFocus": {},
+                  "onHover": {}
+                }
+              }
+            }
+          ]
         }
+
       ]
     }
   ]

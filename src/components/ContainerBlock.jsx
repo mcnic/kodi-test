@@ -18,19 +18,10 @@ export default function ContainerBlock(props) {
     setStyles(__styles);
 
     setChildrens(getChildComponents(children));
-    // const newChildren = children.map((el) => {
-    //   // console.log('el', el);
-
-    //   const componentData = componentsFactory({ type: el.type });
-    //   dispatch(addConfig({ id: componentData.id, config: el }));
-    //   return componentData;
-    // });
-    // setChildren(newChildren);
   }, [children, configs, id, props]);
 
   return (
     <div style={{ ...styles, border: '1px solid red', width: '100%' }}>
-      {/* {JSON.stringify(childrens)} */}
       {childrens.map((el) => (
         <Fragment key={el.id}>{el.component}</Fragment>
       ))}

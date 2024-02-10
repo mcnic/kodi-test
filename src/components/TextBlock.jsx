@@ -11,7 +11,7 @@ export default function TextBlock({ id }) {
     const { data, __styles } = configs[id] || {};
     setText(data?.value || '');
 
-    console.log('TextBlock', id, configs, configs[id]);
+    // console.log('TextBlock', id, configs, configs[id]);
 
     setStyles(__styles);
   }, [configs, id]);

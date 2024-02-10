@@ -9,27 +9,37 @@ export default function LeftPanel() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const newConfig = parseConfig(onlyComponentsTestData);
-    console.log('newConfig', newConfig?.views);
+    const parsedConfig = parseConfig(onlyComponentsTestData);
+    console.log('parsedConfig', parsedConfig?.views);
+
+    const items = parsedConfig?.views?.map(
+      ({ type, __id, data, value, __children, __styles }) => ({
+        type,
+        __id,
+        __children,
+      })
+    );
+
+    const configs = [];
+
+    const fillConfig = (children) => {
+      children.forEach(({ type, __id, data, value, __children, __styles }) => {
+        configs.push({
+          id: __id,
+          config: { __id, __styles, data, value },
+        });
+
+        if (__children) {
+          fillConfig(__children);
+        }
+      });
+    };
+
+    fillConfig(parsedConfig?.views);
 
     //todo make bulk Store operations
-    newConfig?.views.forEach(
-      ({ type, __id, data, value, __children, __styles }) => {
-        dispatch(
-          addItem({
-            type,
-            __id,
-            __children,
-          })
-        );
-        dispatch(
-          addConfig({
-            id: __id,
-            config: { __id, __styles, data, value },
-          })
-        );
-      }
-    );
+    items.forEach((el) => dispatch(addItem(el)));
+    configs.forEach((el) => dispatch(addConfig(el)));
 
     // examples.map((el) => dispatch(addItem(el)));
   }, [dispatch]);
