@@ -1,4 +1,4 @@
-export const onlyComponentsTestData = `
+export const myTestData = `
 {
   "views": [
     {

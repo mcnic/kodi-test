@@ -2,9 +2,10 @@ import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem, loadItems } from '../../store/reducers/itemsSlice';
 import { parseConfig } from '../factories/parseConfig';
-import { onlyComponentsTestData } from '../mocks/onlyComponentsTestData';
+import { myTestData } from '../mocks/myTestData';
 import { addConfig, loadAllConfig } from '../../store/reducers/configsSlice';
-import { fullJsonTestData } from '../mocks/fullJsonTestData';
+import { baseTestData } from '../mocks/baseTestData';
+import { goalTestData } from '../mocks/goalTestData';
 
 export default function LeftPanel() {
   const dispatch = useDispatch();
@@ -41,24 +42,20 @@ export default function LeftPanel() {
   );
 
   useEffect(() => {
-    loadConfig(fullJsonTestData);
+    loadConfig(baseTestData);
   }, [loadConfig]);
-
-  // const addElement = () => {
-  //   dispatch(addItem(examples[0]));
-  // };
 
   const onSelect = useCallback(
     (event) => {
       switch (event.target.value) {
         case 'base':
-          loadConfig(fullJsonTestData);
+          loadConfig(baseTestData);
           break;
         case 'my':
-          loadConfig(onlyComponentsTestData);
+          loadConfig(myTestData);
           break;
         case 'goal':
-          loadConfig(fullJsonTestData);
+          loadConfig(goalTestData);
           break;
 
         default:
@@ -70,7 +67,7 @@ export default function LeftPanel() {
 
   return (
     <>
-      <h1>Left</h1>
+      <h1>Left panel</h1>
 
       <label htmlFor="cfg-select">Choose a config:</label>
 
@@ -78,10 +75,8 @@ export default function LeftPanel() {
         <option value="">--Please choose an option--</option>
         <option value="base">base</option>
         <option value="my">test 1</option>
-        <option value="goal">Goal</option>
+        <option value="goal">goal</option>
       </select>
-
-      {/* <button onClick={addElement}>add</button> */}
     </>
   );
 }

@@ -5,6 +5,7 @@ import TextField from '../../components/TextField';
 import ContainerBlock from '../../components/ContainerBlock';
 import ImagetBlock from '../../components/ImagetBlock';
 import ButtonBlock from '../../components/ButtonBlock';
+import DropdownBlock from '../../components/DropdownBlock.jsx';
 
 const getComponent = ({ type, id, __children }) => {
   let component;
@@ -27,6 +28,9 @@ const getComponent = ({ type, id, __children }) => {
       break;
     case 'button':
       component = <ButtonBlock id={id} />;
+      break;
+    case 'dropdown':
+      component = <DropdownBlock id={id} />;
       break;
     default:
       component = <WrongBlock id={id} type={type} />;
