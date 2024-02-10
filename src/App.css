@@ -11,7 +11,7 @@
 }
 
 .left-panel {
-  background-color: red;
+  background-color: burlywood;
   display: flex;
   min-width: 300px;
   flex-direction: column;
@@ -33,7 +33,7 @@
   border: 1px solid purple;
   background-color: white;
   height: 100%;
-  width: 600px;
+  width: 400px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -55,8 +55,9 @@
 }
 
 .form-container {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 100%;
+  gap: 20px;
 }
 
 .form-input,
@@ -64,4 +65,27 @@
 .form-teaxarea {
   width: 100%;
   padding-inline: 0;
+}
+
+.form-button {
+}
+
+.form-end-button {
+}
+
+.form-end-button i {
+  float: right;
+}
+
+.form-select {
+  width: 100%;
+}
+
+.form-textarea {
+  width: 100%;
+}
+
+.form-textarea-label {
+  font-size: 12px;
+  opacity: 0.5;
 }

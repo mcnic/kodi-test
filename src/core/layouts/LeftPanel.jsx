@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addItem, loadItems } from '../../store/reducers/itemsSlice';
+import { loadItems } from '../../store/reducers/itemsSlice';
 import { parseConfig } from '../factories/parseConfig';
 import { myTestData } from '../mocks/myTestData';
-import { addConfig, loadAllConfig } from '../../store/reducers/configsSlice';
+import { loadAllConfig } from '../../store/reducers/configsSlice';
 import { baseTestData } from '../mocks/baseTestData';
 import { goalTestData } from '../mocks/goalTestData';
 
@@ -42,25 +42,28 @@ export default function LeftPanel() {
   );
 
   useEffect(() => {
-    loadConfig(baseTestData);
+    loadConfig(goalTestData);
   }, [loadConfig]);
 
   const onSelect = useCallback(
     (event) => {
+      let opt = '';
       switch (event.target.value) {
         case 'base':
-          loadConfig(baseTestData);
+          opt = baseTestData;
           break;
         case 'my':
-          loadConfig(myTestData);
+          opt = myTestData;
           break;
         case 'goal':
-          loadConfig(goalTestData);
+          opt = goalTestData;
           break;
 
         default:
           break;
       }
+
+      loadConfig(opt);
     },
     [loadConfig]
   );
