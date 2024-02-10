@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { loadItems } from '../../store/reducers/itemsSlice';
 import { parseConfig } from '../factories/parseConfig';
